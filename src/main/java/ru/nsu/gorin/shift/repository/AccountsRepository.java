@@ -32,7 +32,7 @@ public class AccountsRepository {
      * @return возвращает данные человека, завернутые в сущность
      */
     public AccountInfoEntity selectCurrent(String currentNickname) {
-        return jdbcTemplate.query("Select * from accounts where nickname=?", new Object[]{currentNickname}, rowMapper)
+        return jdbcTemplate.query("SELECT * FROM accounts WHERE nickname=?", new Object[]{currentNickname}, rowMapper)
                 .stream().findAny().orElse(null);
     }
 
@@ -42,7 +42,7 @@ public class AccountsRepository {
      * @param newInfo новые данные
      */
     public void updateCurrent(long id, AccountInfoEntity newInfo) {
-        jdbcTemplate.update("Update accounts set nickname=?, first_name=?, last_name=? where id=?",
+        jdbcTemplate.update("UPDATE accounts SET nickname=?, first_name=?, last_name=? WHERE id=?",
                 newInfo.getNickname(), newInfo.getFirstName(), newInfo.getLastName(), id);
     }
 
@@ -53,9 +53,9 @@ public class AccountsRepository {
      * @param additionalKarmaCount количество кармы, которое передали человеку
      */
     public void updateCurrentUsersKarma(String currentNickname, int additionalKarmaCount) {
-        int currentKarmaCount = jdbcTemplate.queryForObject("Select karma_count from accounts where nickname=?",
+        int currentKarmaCount = jdbcTemplate.queryForObject("SELECT karma_count FROM accounts WHERE nickname=?",
                     new Object[]{currentNickname}, Integer.class);
-        jdbcTemplate.update("Update accounts set karma_count=? where nickname=?", currentKarmaCount + additionalKarmaCount,
+        jdbcTemplate.update("UPDATE accounts SET karma_count=? WHERE nickname=?", currentKarmaCount + additionalKarmaCount,
                 currentNickname);
     }
 
@@ -64,7 +64,7 @@ public class AccountsRepository {
      * @param newAccount данные нового пользователя
      */
     public void saveNew(AccountInfoEntity newAccount) {
-        jdbcTemplate.update("Insert into accounts Values(1, ?, ?, ?, ?)", newAccount.getNickname(),
+        jdbcTemplate.update("INSERT INTO accounts VALUES(1, ?, ?, ?, ?)", newAccount.getNickname(),
                 newAccount.getFirstName(), newAccount.getLastName(), newAccount.getKarmaCount());
     }
 }

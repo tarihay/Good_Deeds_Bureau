@@ -29,7 +29,7 @@ public class ExecutionRequestsRepository {
      * @return возвращает список всех запросов на выполнение
      */
     public List<ExecutionRequestEntity> selectCurrentUsersExecutionRequests(String currentNickname) {
-        return jdbcTemplate.query("Select * from execution_requests where customer_nickname=?",
+        return jdbcTemplate.query("SELECT * FROM execution_requests WHERE customer_nickname=?",
                 new Object[]{currentNickname}, rowMapper);
     }
 
@@ -39,7 +39,7 @@ public class ExecutionRequestsRepository {
      * @return возвращает данные запроса на выполнение, обернутые в сущность
      */
     public ExecutionRequestEntity selectCurrenExecutionRequest(long id) {
-        return jdbcTemplate.query("Select * from execution_requests where id=?", new Object[]{id}, rowMapper)
+        return jdbcTemplate.query("SELECT * FROM execution_requests WHERE id=?", new Object[]{id}, rowMapper)
                 .stream().findAny().orElse(null);
     }
 
@@ -48,7 +48,7 @@ public class ExecutionRequestsRepository {
      * @param newExecutionRequest данные нового запроса на выполнение, обернутые в сущность
      */
     public void saveNew(ExecutionRequestEntity newExecutionRequest) {
-        jdbcTemplate.update("Insert into execution_requests Values(1, ?, ?, ?, ?, ?)", newExecutionRequest.getCustomerNickname(),
+        jdbcTemplate.update("INSERT INTO execution_requests VALUES(1, ?, ?, ?, ?, ?)", newExecutionRequest.getCustomerNickname(),
                 newExecutionRequest.getExecutorNickname(), newExecutionRequest.getExecutionRequestInfo(),
                 newExecutionRequest.getActualKarmaCount(), newExecutionRequest.getSuggestedKarmaCount());
     }
@@ -58,6 +58,6 @@ public class ExecutionRequestsRepository {
      * @param id номер запроса на выполнение
      */
     public void deleteCurrentUsersExecutionRequest(long id) {
-        jdbcTemplate.update("Delete from execution_requests where id=?", id);
+        jdbcTemplate.update("DELETE FROM execution_requests WHERE id=?", id);
     }
 }

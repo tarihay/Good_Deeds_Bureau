@@ -29,7 +29,7 @@ public class RequestsRepository {
      * @return возвращает список со всеми просьбами
      */
     public List<RequestEntity> selectAll() {
-        return jdbcTemplate.query("Select * from requests", rowMapper);
+        return jdbcTemplate.query("SELECT * FROM requests", rowMapper);
     }
 
     /**
@@ -38,7 +38,7 @@ public class RequestsRepository {
      * @return возвращает список всех просьб пользователя
      */
     public List<RequestEntity> selectCurrentUsersRequests(String currentNickname) {
-        return jdbcTemplate.query("Select * from requests where customer_nickname=?", new Object[]{currentNickname}, rowMapper);
+        return jdbcTemplate.query("SELECT * FROM requests WHERE customer_nickname=?", new Object[]{currentNickname}, rowMapper);
     }
 
     /**
@@ -47,7 +47,7 @@ public class RequestsRepository {
      * @return возвращает просьбу, обернутую в сущность
      */
     public RequestEntity selectCurrenRequest(long id) {
-        return jdbcTemplate.query("Select * from requests where id=?", new Object[]{id}, rowMapper)
+        return jdbcTemplate.query("SELECT * FROM requests WHERE id=?", new Object[]{id}, rowMapper)
                 .stream().findAny().orElse(null);
     }
 
@@ -57,7 +57,7 @@ public class RequestsRepository {
      * @param newInfo новые данные, обернутые в сущность
      */
     public void updateCurrent(long id, RequestEntity newInfo) {
-        jdbcTemplate.update("Update requests set request_info=?, karma_count=? where id=?",
+        jdbcTemplate.update("UPDATE requests SET request_info=?, karma_count=? WHERE id=?",
                 newInfo.getRequestInfo(), newInfo.getKarmaCount(), id);
     }
 
@@ -66,7 +66,7 @@ public class RequestsRepository {
      * @param newRequest данные новой просьбы, обернутые в сущность
      */
     public void saveNew(RequestEntity newRequest) {
-        jdbcTemplate.update("Insert into requests Values(1, ?, ?, ?)", newRequest.getCustomerNickname(),
+        jdbcTemplate.update("INSERT INTO requests VALUES(1, ?, ?, ?)", newRequest.getCustomerNickname(),
                 newRequest.getRequestInfo(), newRequest.getKarmaCount());
     }
 
@@ -75,6 +75,6 @@ public class RequestsRepository {
      * @param id уникальный идентификатор просьбы
      */
     public void deleteCurrentUsersRequest(long id) {
-        jdbcTemplate.update("Delete from requests where id=?", id);
+        jdbcTemplate.update("DELETE FROM requests WHERE id=?", id);
     }
 }
