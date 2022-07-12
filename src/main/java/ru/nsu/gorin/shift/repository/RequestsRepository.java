@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.nsu.gorin.shift.repository.mapper.RequestEntityRowMapper;
-import ru.nsu.gorin.shift.repository.model.AccountInfoEntity;
 import ru.nsu.gorin.shift.repository.model.RequestEntity;
 
 import java.util.List;

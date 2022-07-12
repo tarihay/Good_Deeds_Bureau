@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.nsu.gorin.shift.repository.mapper.ExecutionRequestEntityRowMapper;
 import ru.nsu.gorin.shift.repository.model.ExecutionRequestEntity;
+import ru.nsu.gorin.shift.repository.model.RequestEntity;
 
 import java.util.List;
 
@@ -24,12 +25,30 @@ public class ExecutionRequestsRepository {
     }
 
     /**
+     * Метод с помощью sql-запроса находит все запросы на выполнение всех пользователей
+     * @return возвращает список со всеми запросами на выполнение
+     */
+    public List<ExecutionRequestEntity> selectAll() {
+        return jdbcTemplate.query("SELECT * FROM execution_requests", rowMapper);
+    }
+
+    /**
      * Метод с помощью sql-запроса возвращает запросы на выполнение его просьбы
      * @param currentNickname никнейм владельца просьб
      * @return возвращает список всех запросов на выполнение
      */
-    public List<ExecutionRequestEntity> selectCurrentUsersExecutionRequests(String currentNickname) {
+    public List<ExecutionRequestEntity> selectCurrentUsersIngoingExecutionRequests(String currentNickname) {
         return jdbcTemplate.query("SELECT * FROM execution_requests WHERE customer_nickname=?",
+                new Object[]{currentNickname}, rowMapper);
+    }
+
+    /**
+     * Метод с помощью sql-запроса возвращает ваши запросы на выполнение чужих просьб
+     * @param currentNickname ваш никнейм
+     * @return возвращает список всех запросов на выполнение
+     */
+    public List<ExecutionRequestEntity> selectCurrentUsersOutgoingExecutionRequests(String currentNickname) {
+        return jdbcTemplate.query("SELECT * FROM execution_requests WHERE executor_nickname=?",
                 new Object[]{currentNickname}, rowMapper);
     }
 

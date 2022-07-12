@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.nsu.gorin.shift.repository.ExecutionRequestsRepository;
 import ru.nsu.gorin.shift.repository.model.ExecutionRequestEntity;
+import ru.nsu.gorin.shift.repository.model.RequestEntity;
 
 import java.util.List;
 
@@ -16,8 +17,16 @@ public class ExecutionRequestsService {
         this.executionRequestsRepository = executionRequestsRepository;
     }
 
-    public List<ExecutionRequestEntity> selectCurrentUsersRequests(String currentNickname) {
-        return executionRequestsRepository.selectCurrentUsersExecutionRequests(currentNickname);
+    public List<ExecutionRequestEntity> selectAll() {
+        return executionRequestsRepository.selectAll();
+    }
+
+    public List<ExecutionRequestEntity> selectCurrentUsersIngoingExecutionRequests(String currentNickname) {
+        return executionRequestsRepository.selectCurrentUsersIngoingExecutionRequests(currentNickname);
+    }
+
+    public List<ExecutionRequestEntity> selectCurrentUsersOutgoingExecutionRequests(String currentNickname) {
+        return executionRequestsRepository.selectCurrentUsersOutgoingExecutionRequests(currentNickname);
     }
 
     public ExecutionRequestEntity selectCurrenRequest(long id) {

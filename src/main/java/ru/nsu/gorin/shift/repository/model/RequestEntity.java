@@ -18,6 +18,16 @@ public class RequestEntity {
     @Column(name = "karma_count", nullable = false)
     private int karmaCount;
 
+    public RequestEntity() {
+
+    }
+
+    public RequestEntity(String customerNickname, String requestInfo, int karmaCount) {
+        this.customerNickname = customerNickname;
+        this.requestInfo = requestInfo;
+        this.karmaCount = karmaCount;
+    }
+
     public long getId() {
         return id;
     }

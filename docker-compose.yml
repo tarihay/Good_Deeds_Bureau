@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   postgres:
-    container_name: yrd-postgres
+    container_name: gdb-postgres
     image: postgres:12.1-alpine
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: good_deeds_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 

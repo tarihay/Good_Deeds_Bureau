@@ -24,6 +24,22 @@ public class ExecutionRequestEntity {
     @Column(name = "execution_request_info", nullable = false)
     private String executionRequestInfo;
 
+    public ExecutionRequestEntity() {
+
+    }
+
+    public ExecutionRequestEntity(String customerNickname,
+                                  String executorNickname,
+                                  String executionRequestInfo,
+                                  int actualKarmaCount,
+                                  int suggestedKarmaCount) {
+        this.customerNickname = customerNickname;
+        this.executorNickname = executorNickname;
+        this.actualKarmaCount = actualKarmaCount;
+        this.suggestedKarmaCount = suggestedKarmaCount;
+        this.executionRequestInfo = executionRequestInfo;
+    }
+
     public long getId() {
         return id;
     }
