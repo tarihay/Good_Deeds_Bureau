@@ -67,9 +67,13 @@ public class ExecutionRequestsRepository {
      * @param newExecutionRequest данные нового запроса на выполнение, обернутые в сущность
      */
     public void saveNew(ExecutionRequestEntity newExecutionRequest) {
-        jdbcTemplate.update("INSERT INTO execution_requests VALUES(1, ?, ?, ?, ?, ?)", newExecutionRequest.getCustomerNickname(),
-                newExecutionRequest.getExecutorNickname(), newExecutionRequest.getExecutionRequestInfo(),
-                newExecutionRequest.getActualKarmaCount(), newExecutionRequest.getSuggestedKarmaCount());
+        jdbcTemplate.update("INSERT INTO " +
+                        "execution_requests(customer_nickname, executor_nickname, " +
+                        "actual_karma_count, suggested_karma_count, execution_request_info) " +
+                        "VALUES(?, ?, ?, ?, ?)",
+                newExecutionRequest.getCustomerNickname(),
+                newExecutionRequest.getExecutorNickname(),newExecutionRequest.getActualKarmaCount(),
+                newExecutionRequest.getSuggestedKarmaCount(), newExecutionRequest.getExecutionRequestInfo());
     }
 
     /**

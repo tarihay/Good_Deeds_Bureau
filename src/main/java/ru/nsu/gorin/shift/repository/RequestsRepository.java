@@ -65,7 +65,8 @@ public class RequestsRepository {
      * @param newRequest данные новой просьбы, обернутые в сущность
      */
     public void saveNew(RequestEntity newRequest) {
-        jdbcTemplate.update("INSERT INTO requests VALUES(1, ?, ?, ?)", newRequest.getCustomerNickname(),
+        jdbcTemplate.update("INSERT INTO requests(customer_nickname, request_info, karma_count) " +
+                        "VALUES(?, ?, ?)", newRequest.getCustomerNickname(),
                 newRequest.getRequestInfo(), newRequest.getKarmaCount());
     }
 

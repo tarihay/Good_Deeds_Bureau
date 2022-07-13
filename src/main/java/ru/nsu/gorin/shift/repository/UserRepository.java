@@ -98,7 +98,14 @@ public class UserRepository {
      * @param newAccount данные нового пользователя
      */
     public void saveNew(UserEntity newAccount) {
-        jdbcTemplate.update("INSERT INTO accounts VALUES(1, ?, ?, ?, ?, ?)", newAccount.getNickname(),
-                newAccount.getFirstName(), newAccount.getLastName(), newAccount.getRoles(), newAccount.getKarmaCount());
+        jdbcTemplate.update("INSERT INTO accounts(nickname, password, first_name, " +
+                        "last_name, karma_count) VALUES(?, ?, ?, ?, ?)",
+                newAccount.getNickname(), newAccount.getPassword(),
+                newAccount.getFirstName(), newAccount.getLastName(),
+                newAccount.getKarmaCount());
+    }
+
+    public void deleteCurrentUser(long id) {
+        jdbcTemplate.update("DELETE FROM requests WHERE id=?", id);
     }
 }

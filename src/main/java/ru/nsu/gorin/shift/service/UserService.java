@@ -13,9 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Service
-public class UserService implements UserDetailsService {
-    @PersistenceContext
-    private EntityManager entityManager;
+public class UserService {
 
     private final UserRepository userRepository;
 
@@ -54,13 +52,11 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String currentNickname) throws UsernameNotFoundException {
-        UserEntity user = userRepository.selectCurrentByNickname(currentNickname);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
+    public UserEntity findByNickname(String nickname) {
+        return userRepository.selectCurrentByNickname(nickname);
+    }
 
-        return user;
+    public void deleteCurrentUsersRequest(long id) {
+        userRepository.deleteCurrentUser(id);
     }
 }
