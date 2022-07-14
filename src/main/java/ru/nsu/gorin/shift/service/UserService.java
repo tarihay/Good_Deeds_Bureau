@@ -1,25 +1,21 @@
 package ru.nsu.gorin.shift.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.nsu.gorin.shift.repository.UserRepository;
+import ru.nsu.gorin.shift.repository.UserRepositoryJpa;
 import ru.nsu.gorin.shift.repository.model.UserEntity;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserRepositoryJpa userRepositoryJpa;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserRepositoryJpa userRepositoryJpa) {
         this.userRepository = userRepository;
+        this.userRepositoryJpa = userRepositoryJpa;
     }
 
     public void updateCurrentsNickname(long id, String nickname) {
@@ -48,7 +44,7 @@ public class UserService {
             return false;
         }
 
-        userRepository.saveNew(newAccount);
+        UserEntity newUser = userRepositoryJpa.save(newAccount);
         return true;
     }
 

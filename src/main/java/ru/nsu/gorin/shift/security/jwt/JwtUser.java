@@ -28,12 +28,10 @@ public class JwtUser implements UserDetails {
     private String password;
 
     public JwtUser(
-            long id,
             String nickname,
             String firstName,
             String lastName,
             String password) {
-        this.id = id;
         this.nickname = nickname;
         this.firstName = firstName;
         this.lastName = lastName;

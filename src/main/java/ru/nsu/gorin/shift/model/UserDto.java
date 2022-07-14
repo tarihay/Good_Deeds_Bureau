@@ -15,7 +15,6 @@ public class UserDto {
 
     public UserEntity toUser(){
         UserEntity user = new UserEntity();
-        user.setId(id);
         user.setNickname(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -25,7 +24,6 @@ public class UserDto {
 
     public static UserDto fromUser(UserEntity user) {
         UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
         userDto.setUsername(user.getNickname());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());

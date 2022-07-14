@@ -6,7 +6,15 @@ import javax.persistence.*;
 @Table(name = "execution_requests")
 public class ExecutionRequestEntity {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "execution_sequence",
+            sequenceName = "execution_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "execution_sequence"
+    )
     private long id;
 
     @Column(name = "customer_nickname", nullable = false)

@@ -12,9 +12,10 @@ import ru.nsu.gorin.shift.repository.model.UserEntity;
  */
 @Repository
 public class UserRepository {
+    private static final int FIRST = 0;
 
-    private JdbcTemplate jdbcTemplate;
-    private UserEntityRowMapper rowMapper;
+    private final JdbcTemplate jdbcTemplate;
+    private final UserEntityRowMapper rowMapper;
 
     @Autowired
     public UserRepository(JdbcTemplate jdbcTemplate, UserEntityRowMapper rowMapper){
@@ -98,8 +99,7 @@ public class UserRepository {
      * @param newAccount данные нового пользователя
      */
     public void saveNew(UserEntity newAccount) {
-        jdbcTemplate.update("INSERT INTO accounts(nickname, password, first_name, " +
-                        "last_name, karma_count) VALUES(?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO accounts(nickname, password, first_name, last_name, karma_count) VALUES(?, ?, ?, ?, ?)",
                 newAccount.getNickname(), newAccount.getPassword(),
                 newAccount.getFirstName(), newAccount.getLastName(),
                 newAccount.getKarmaCount());

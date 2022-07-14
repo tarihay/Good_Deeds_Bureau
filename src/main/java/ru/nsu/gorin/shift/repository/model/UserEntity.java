@@ -1,21 +1,23 @@
 package ru.nsu.gorin.shift.repository.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 
 @Entity
 @Table(name = "accounts")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
+    private Long id;
 
     @Column(name = "nickname", nullable = false, unique = true)
     private String nickname;
@@ -32,6 +34,10 @@ public class UserEntity {
     @Column(name = "karma_count")
     private int karmaCount;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -46,10 +52,6 @@ public class UserEntity {
 
     public int getKarmaCount() {
         return karmaCount;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setNickname(String nickname) {
