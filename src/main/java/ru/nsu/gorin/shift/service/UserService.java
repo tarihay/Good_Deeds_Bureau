@@ -44,7 +44,8 @@ public class UserService {
             return false;
         }
 
-        UserEntity newUser = userRepositoryJpa.save(newAccount);
+//        UserEntity newUser = userRepositoryJpa.save(newAccount);
+        userRepository.saveNew(newAccount);
         return true;
     }
 

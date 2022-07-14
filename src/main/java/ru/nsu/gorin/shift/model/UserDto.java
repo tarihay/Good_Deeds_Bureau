@@ -7,11 +7,9 @@ import ru.nsu.gorin.shift.repository.model.UserEntity;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
-    private Long id;
     private String username;
     private String firstName;
     private String lastName;
-    private String email;
 
     public UserEntity toUser(){
         UserEntity user = new UserEntity();
